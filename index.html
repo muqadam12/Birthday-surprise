@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Sorry Api — Your Birthday Gift 🎁</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}html,body{width:100%;height:100%;overflow:hidden}
+body{font-family:Inter,system-ui,-apple-system,Segoe UI,sans-serif;background:#070817;color:#fff}
+body:before{content:"";position:fixed;inset:0;background:radial-gradient(circle at 15% 20%,#ff4fa322,transparent 28%),radial-gradient(circle at 85% 25%,#7067ff25,transparent 30%),radial-gradient(circle at 50% 100%,#ffc85b18,transparent 35%);z-index:-3}
+canvas{position:fixed;inset:0;pointer-events:none;z-index:50}
+.orb{position:fixed;border-radius:50%;filter:blur(8px);opacity:.35;z-index:-2;animation:float 9s ease-in-out infinite}
+.o1{width:190px;height:190px;background:#ff4fa3;left:-60px;top:15%}.o2{width:260px;height:260px;background:#635bff;right:-100px;top:10%;animation-delay:2s}.o3{width:160px;height:160px;background:#ffc04d;left:40%;bottom:-80px;animation-delay:4s}
+@keyframes float{50%{transform:translate(25px,-35px)}}
+#app{height:100%;position:relative}.page{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;padding:45px 18px 82px;opacity:0;transform:translateX(55px) scale(.96);pointer-events:none;transition:.65s cubic-bezier(.2,.8,.2,1)}
+.page.active{opacity:1;transform:none;pointer-events:auto}
+.card{width:min(920px,94vw);max-height:82vh;overflow:auto;text-align:center;padding:42px 32px;border:1px solid #ffffff20;border-radius:32px;background:#ffffff0b;backdrop-filter:blur(20px);box-shadow:0 30px 100px #0008}
+.card::-webkit-scrollbar{width:5px}.card::-webkit-scrollbar-thumb{background:#ffffff30;border-radius:9px}
+.kicker{font-size:.78rem;letter-spacing:4px;text-transform:uppercase;color:#ffc7e4;margin-bottom:14px}
+h1{font-size:clamp(2.9rem,8vw,6.5rem);line-height:.96;margin-bottom:20px}
+h2{font-size:clamp(2rem,5vw,4rem);margin-bottom:18px}
+p{font-size:clamp(1rem,2vw,1.2rem);line-height:1.75;color:#eee}
+.gradient{background:linear-gradient(90deg,#ffd2e8,#fff,#b9c7ff,#ffd2e8);background-size:250%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:shine 4s linear infinite}
+@keyframes shine{to{background-position:250%}}
+.emoji{font-size:clamp(4rem,10vw,7rem);display:block;margin-bottom:14px;animation:bounce 2s ease-in-out infinite}
+@keyframes bounce{50%{transform:translateY(-15px) rotate(3deg)}}
+.btn{position:relative;overflow:hidden;border:0;padding:14px 24px;border-radius:999px;font-weight:850;cursor:pointer;margin:18px 6px 0;background:#fff;color:#111;transition:.25s;box-shadow:0 8px 25px #0004}
+.btn:before{content:"";position:absolute;top:-40%;left:-80%;width:45%;height:180%;background:#fff9;transform:skewX(-25deg);transition:.55s}
+.btn:hover:before{left:135%}.btn:hover{transform:translateY(-4px) scale(1.035);box-shadow:0 14px 35px #fff2}
+.btn:active{transform:scale(.94)}.btn.alt{background:#ffffff12;color:#fff;border:1px solid #ffffff25}
+.btn.pink{background:linear-gradient(135deg,#ff8fc8,#ffd0e7)}
+.btn.glow{animation:pulse 1.8s infinite}
+@keyframes pulse{50%{box-shadow:0 0 0 8px #ff8fc818,0 0 35px #ff8fc855}}
+.counter{position:fixed;right:18px;top:18px;z-index:60;color:#ffffffaa;font-size:.8rem}
+.nav{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);z-index:60;display:flex;gap:7px;padding:9px 12px;background:#0008;border:1px solid #ffffff18;border-radius:999px;backdrop-filter:blur(15px)}
+.dot{width:8px;height:8px;border:0;border-radius:50%;background:#ffffff3d;cursor:pointer;transition:.25s}.dot.active{background:#fff;transform:scale(1.35)}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:13px;margin:25px 0}.tile{padding:25px 12px;background:#ffffff0b;border:1px solid #ffffff12;border-radius:22px;font-size:2rem;transition:.3s}.tile:hover{transform:translateY(-7px) rotate(1deg);background:#ffffff14}.tile span{display:block;font-size:.88rem;color:#ddd;margin-top:9px}
+.list{max-width:680px;margin:25px auto;text-align:left}.list div{padding:15px 18px;margin:10px 0;background:#ffffff0b;border-left:3px solid #ff8fc8;border-radius:13px}
+.quote{font-size:clamp(1.4rem,3vw,2.35rem);font-weight:750;line-height:1.45;margin:25px 0}.signature{margin-top:25px;color:#ffc3df;font-weight:800}
+.timeline{max-width:650px;margin:25px auto;text-align:left}.timeline div{padding:15px 20px;margin:12px 0;border-radius:15px;background:#ffffff0a}.timeline b{color:#ffc0de}
+.gift{width:150px;height:120px;margin:22px auto;position:relative;animation:gift 2.2s ease-in-out infinite}.box{position:absolute;bottom:0;left:15px;width:120px;height:80px;border-radius:8px;background:linear-gradient(135deg,#ff6eaf,#b75cff)}.lid{position:absolute;top:20px;left:8px;width:134px;height:27px;border-radius:7px;background:#ffb2d7}.ribbon{position:absolute;left:67px;top:20px;width:17px;height:80px;background:#ffd66d}.bow{position:absolute;top:3px;left:50px;font-size:35px}.gift:hover{animation:shake .35s infinite}@keyframes gift{50%{transform:translateY(-8px) rotate(2deg)}}@keyframes shake{25%{transform:rotate(-5deg)}75%{transform:rotate(5deg)}}
+.small{font-size:.88rem;color:#aaa;margin-top:15px}
+@media(max-width:650px){.card{padding:30px 19px}.grid{grid-template-columns:1fr}.page{padding-bottom:78px}}
+</style>
+</head>
+<body>
+<div class="orb o1"></div><div class="orb o2"></div><div class="orb o3"></div><canvas id="fx"></canvas>
+
+<div id="app">
+<section class="page active"><div class="card">
+<div class="kicker">A very late little surprise</div><div class="gift"><div class="bow">🎀</div><div class="lid"></div><div class="box"></div><div class="ribbon"></div></div>
+<h1 class="gradient">Sorry Api…<br>Gift Late Ho Gaya! 🥺🎁</h1>
+<p>But late hai… forgotten nahi. ❤️</p><button class="btn pink glow" onclick="nextPage()">Open Your Gift ✨</button>
+</div></section>
+
+<section class="page"><div class="card"><div class="kicker">Page 2 · A Little Apology</div><h2>Sab se pehle… Sorry! 🥹</h2><p>Api, birthday gift thora late ho gaya, lekin dil se banaya hai. Is liye socha ek normal wish ki jagah tumhare liye poori mini website bana doon. 😭❤️</p><button class="btn" onclick="nextPage()">Okay, Continue →</button></div></section>
+
+<section class="page"><div class="card"><div class="kicker">Page 3 · Birthday Girl</div><span class="emoji">👑</span><h2 class="gradient">Today Is Your Day!</h2><p>Aaj ka din officially <b>Areej Api Day</b> hai. Cake, smiles, good vibes — sab compulsory. 🎂✨</p><button class="btn" onclick="nextPage()">Next →</button></div></section>
+
+<section class="page"><div class="card"><div class="kicker">Page 4 · My Wishes</div><h2>Birthday Dua 🤲</h2><div class="list"><div>🌸 Hamesha khush raho.</div><div>💫 Har achi wish poori ho.</div><div>🕊️ Allah tumhein sukoon aur barkat de.</div><div>🌷 Har naya saal pichlay saal se behtar ho.</div></div><button class="btn" onclick="nextPage()">Ameen? →</button></div></section>
+
+<section class="page"><div class="card"><div class="kicker">Page 5 · Api Energy</div><h2>Three Things We Need 😭</h2><div class="grid"><div class="tile">😂<span>Random Laughs</span></div><div class="tile">💬<span>Random Talks</span></div><div class="tile">🤝<span>Family Vibes</span></div></div><p>Because life without a little chaos would be boring. 😂</p><button class="btn" onclick="nextPage()">Keep Going →</button></div></section>
+
+<section class="page"><div class="card"><div class="kicker">Page 6 · Official Award</div><span class="emoji">🏆</span><h2 class="gradient">Best Api Award</h2><p>This highly scientific and absolutely official award goes to <b>Areej Api</b> for surviving another year with style.</p><p class="quote">“Certified for unlimited smiles, memories & thori si pagalpan.”</p><button class="btn" onclick="nextPage()">Accept Award →</button></div></section>
+
+<section class="page"><div class="card"><div class="kicker">Page 7 · Memory Lane</div><h2>Little Moments ✨</h2><div class="timeline"><div><b>01 · Laughs</b><br>Woh random moments jo baad mein yaad aa kar hansa dete hain.</div><div><b>02 · Conversations</b><br>Choti choti baatein bhi memories ban jati hain.</div><div><b>03 · Family</b><br>Kuch relationships naam se zyada dil mein important hote hain.</div></div><button class="btn" onclick="nextPage()">Next →</button></div></section>
+
+<section class="page"><div class="card"><div class="kicker">Page 8 · Reminder</div><h2>One Thing To Remember 💗</h2><p class="quote">“You don't need a perfect life to have beautiful moments.”</p><p>May you always find a reason to smile, even on ordinary days.</p><button class="btn" onclick="nextPage()">Next →</button></div></section>
+
+<section class="page"><div class="card"><div class="kicker">Page 9 · Birthday Mode</div><h2 class="gradient">Party Protocol Activated 🎊</h2><div class="grid"><div class="tile">🎂<span>Cake</span></div><div class="tile">🎁<span>Gifts</span></div><div class="tile">🎈<span>Celebration</span></div></div><button class="btn pink glow" onclick="celebrate()">🎉 Confetti!</button><button class="btn alt" onclick="nextPage()">Next →</button></div></section>
+
+<section class="page"><div class="card"><div class="kicker">Page 10 · New Chapter</div><span class="emoji">🌙</span><h2>Another Year, Another Chapter</h2><p>May this chapter bring you new opportunities, beautiful memories, genuine happiness and plenty of reasons to say: “Yaar, life achi chal rahi hai.” 😭✨</p><button class="btn" onclick="nextPage()">Next →</button></div></section>
+
+<section class="page"><div class="card"><div class="kicker">Page 11 · From Me</div><h2>A Small Message ❤️</h2><p>Api, gifts ki value uski price se nahi hoti — kabhi kabhi effort hi sab se special cheez hoti hai. Is website ko banane ka reason simple hai: tumhara birthday thora late sahi, lekin wish memorable honi chahiye.</p><p class="signature">Stay blessed. Always. 🤍</p><button class="btn" onclick="nextPage()">Almost There →</button></div></section>
+
+<section class="page"><div class="card"><div class="kicker">Page 12 · Secret Level</div><h2>Shhh… 🤫</h2><p>There is one hidden rule for this birthday:</p><p class="quote">“No sad vibes allowed today.”</p><p>Sirf smiles, cake aur achi memories. 😭😂</p><button class="btn" onclick="nextPage()">Unlock Final Pages 🔓</button></div></section>
+
+<section class="page"><div class="card"><div class="kicker">Page 13 · Final Countdown</div><h2 class="gradient">3… 2… 1… 🎉</h2><p>The final birthday message is loading…</p><div class="emoji">🎁</div><button class="btn pink glow" onclick="nextPage();celebrate()">Open Final Surprise →</button></div></section>
+
+<section class="page"><div class="card"><div class="kicker">Page 14 · The Big Wish</div><span class="emoji">🥳</span><h1 class="gradient">Happy Birthday,<br>Areej Api!</h1><p>May your year be full of happiness, success, peace, laughter and unforgettable moments.</p><p class="quote">“New year of life. New memories. Same amazing Api.”</p><button class="btn pink glow" onclick="nextPage();celebrate()">One Last Page →</button></div></section>
+
+<section class="page"><div class="card"><div class="kicker">Page 15 · Made With Love</div><span class="emoji">🤍</span><h2>For You, Api</h2><p>Sorry gift late ho gaya… but I hope this little surprise made you smile.</p><p class="quote">Happy Birthday once again! 🎂✨</p><p class="signature">Stay blessed & keep smiling.</p><button class="btn pink glow" onclick="celebrate()">🎉 Celebrate Again</button><button class="btn alt" onclick="goTo(0)">↻ Start Again</button><div class="small">Made specially for Areej Api • Birthday Edition</div></div></section>
+</div>
+
+<div class="counter" id="counter">1 / 15</div><div class="nav" id="nav"></div>
+<script>
+const pages=[...document.querySelectorAll('.page')],nav=document.getElementById('nav');let current=0;
+pages.forEach((_,i)=>{let d=document.createElement('button');d.className='dot'+(!i?' active':'');d.onclick=()=>goTo(i);nav.appendChild(d)});
+function goTo(i){current=(i+pages.length)%pages.length;pages.forEach((p,n)=>p.classList.toggle('active',n===current));[...nav.children].forEach((d,n)=>d.classList.toggle('active',n===current));document.getElementById('counter').textContent=`${current+1} / ${pages.length}`}
+function nextPage(){goTo(current+1)}
+const canvas=document.getElementById('fx'),ctx=canvas.getContext('2d');let pieces=[];
+function resize(){canvas.width=innerWidth;canvas.height=innerHeight}resize();addEventListener('resize',resize);
+function celebrate(){for(let i=0;i<190;i++)pieces.push({x:innerWidth/2,y:innerHeight*.45,vx:(Math.random()-.5)*13,vy:(Math.random()-.8)*13-3,r:Math.random()*5+2,life:1,rot:Math.random()*6})}
+function animate(){ctx.clearRect(0,0,canvas.width,canvas.height);pieces.forEach(p=>{p.x+=p.vx;p.vy+=.18;p.y+=p.vy;p.life-=.006;p.rot+=.15;ctx.save();ctx.globalAlpha=Math.max(0,p.life);ctx.translate(p.x,p.y);ctx.rotate(p.rot);ctx.fillStyle=`hsl(${(p.x+p.y)%360},90%,70%)`;ctx.fillRect(-p.r/2,-p.r/2,p.r*1.8,p.r*.8);ctx.restore()});pieces=pieces.filter(p=>p.life>0&&p.y<canvas.height+30);requestAnimationFrame(animate)}animate();
+document.addEventListener('keydown',e=>{if(e.key==='ArrowRight'||e.key===' ')nextPage();if(e.key==='ArrowLeft')goTo(current-1)});
+</script>
+</body></html>
